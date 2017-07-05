@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      ORACLE Version 11g                           */
-/* Created on:     2017/7/4 21:13:09                            */
+/* Created on:     2017/7/5 11:02:15                            */
 /*==============================================================*/
 
 
@@ -149,7 +149,7 @@ create table control
 (
    control_id           INTEGER              not null,
    bayonet_id           INTEGER,
-   car_id               INTEGER              not null,
+   car_id               VARCHAR2(32)         not null,
    car_type             VARCHAR2(32)         not null,
    control_date         DATE                 not null,
    del                  INTEGER              not null
@@ -330,6 +330,7 @@ alter table users
    add constraint FK_USERS_RELATIONS_DEPARTME foreign key (depart_id)
       references department (depart_id);
 
+
 create or replace trigger d_trigger
    after insert on bayonet for each row
    begin
@@ -342,5 +343,4 @@ create or replace trigger a_trigger
   update point set bayonet_num = bayonet_num - 1 where point_id = :old.point_id;
    end;
 /
-
 
