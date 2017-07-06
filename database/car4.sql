@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      ORACLE Version 11g                           */
-/* Created on:     2017/7/5 11:02:15                            */
+/* Created on:     2017/7/6 11:44:28                            */
 /*==============================================================*/
 
 
@@ -15,6 +15,9 @@ alter table bayonet
 
 alter table control
    drop constraint FK_CONTROL_RELATIONS_BAYONET;
+
+alter table dealalarm
+   drop constraint FK_DEALALAR_RELATIONS_ALARM;
 
 alter table pass_car
    drop constraint FK_PASS_CAR_RELATIONS_BAYONET;
@@ -43,6 +46,10 @@ drop table black_list cascade constraints;
 drop index Relationship_6_FK;
 
 drop table control cascade constraints;
+
+drop index Relationship_9_FK;
+
+drop table dealalarm cascade constraints;
 
 drop table department cascade constraints;
 
@@ -165,6 +172,34 @@ create index Relationship_6_FK on control (
 );
 
 /*==============================================================*/
+/* Table: dealalarm                                             */
+/*==============================================================*/
+create table dealalarm 
+(
+   iden_state           INTEGER              not null,
+   iden_police          VARCHAR2(32)         not null,
+   tel                  VARCHAR2(32)         not null,
+   iden_depart          VARCHAR2(32)         not null,
+   iden_time            DATE                 not null,
+   remark               VARCHAR2(400)        not null,
+   deal_state           INTEGER              not null,
+   unstop_reason        VARCHAR2(400)        not null,
+   stop                 INTEGER              not null,
+   del                  INTEGER              not null
+      constraint CKC_DEL_DEALALAR check (del in (0,1)),
+   deal_id              INTEGER              not null,
+   alarm_id             INTEGER,
+   constraint PK_DEALALARM primary key (deal_id)
+);
+
+/*==============================================================*/
+/* Index: Relationship_9_FK                                     */
+/*==============================================================*/
+create index Relationship_9_FK on dealalarm (
+   alarm_id ASC
+);
+
+/*==============================================================*/
 /* Table: department                                            */
 /*==============================================================*/
 create table department 
@@ -178,7 +213,7 @@ create table department
    depart_desc          VARCHAR2(400)        not null,
    depart_code          VARCHAR2(32)         not null,
    shortname            VARCHAR2(32)         not null,
-   depart_parent        VARCHAR2(32)         not null,
+   depart_parent        INTEGER              not null,
    del                  INTEGER             
       constraint CKC_DEL_DEPARTME check (del is null or (del in (0,1))),
    constraint PK_DEPARTMENT primary key (depart_id)
@@ -314,6 +349,10 @@ alter table control
    add constraint FK_CONTROL_RELATIONS_BAYONET foreign key (bayonet_id)
       references bayonet (bayonet_id);
 
+alter table dealalarm
+   add constraint FK_DEALALAR_RELATIONS_ALARM foreign key (alarm_id)
+      references alarm (alarm_id);
+
 alter table pass_car
    add constraint FK_PASS_CAR_RELATIONS_BAYONET foreign key (bayonet_id)
       references bayonet (bayonet_id);
@@ -330,7 +369,6 @@ alter table users
    add constraint FK_USERS_RELATIONS_DEPARTME foreign key (depart_id)
       references department (depart_id);
 
-
 create or replace trigger d_trigger
    after insert on bayonet for each row
    begin
@@ -343,4 +381,3 @@ create or replace trigger a_trigger
   update point set bayonet_num = bayonet_num - 1 where point_id = :old.point_id;
    end;
 /
-

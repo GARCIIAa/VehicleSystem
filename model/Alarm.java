@@ -6,7 +6,7 @@ public class Alarm {
 	private int alarm_id;  //报警编号
 	private int bayonet_id;   //卡口编号
 	private int road_id;  //道路编号
-	private int car_id;   //车牌号
+	private String car_id;   //车牌号
 	private Date collection_date;  //采集时间
 	private int state; //状态 0-未处理 1-已处理
 	private String speed;  //速度
@@ -18,7 +18,7 @@ public class Alarm {
 		this.alarm_id = 0;
 		this.bayonet_id = 0;
 		this.road_id = 0;
-		this.car_id = 0;
+		this.car_id = "";
 		this.collection_date = new Date(0);
 		this.state = 0;
 		this.speed = "";
@@ -27,7 +27,7 @@ public class Alarm {
 		this.direction = "";
 	}
 	
-	public Alarm(int alarm_id, int bayonet_id, int road_id, int car_id,
+	public Alarm(int alarm_id, int bayonet_id, int road_id, String car_id,
 			Date collection_date, int state, String speed, String picpath,
 			int del, String direction) {
 		super();
@@ -67,11 +67,11 @@ public class Alarm {
 		this.road_id = road_id;
 	}
 
-	public int getCar_id() {
+	public String getCar_id() {
 		return car_id;
 	}
 
-	public void setCar_id(int car_id) {
+	public void setCar_id(String car_id) {
 		this.car_id = car_id;
 	}
 

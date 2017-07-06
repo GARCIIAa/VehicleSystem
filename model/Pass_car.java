@@ -6,6 +6,7 @@ public class Pass_car {
 	private int pass_id;   //车辆编号
 	private int road_id;    //道路编号
 	private int bayonet_id;   //卡位编号
+	private String car_id;
 	private Date collection_date;  //采集时间
 	private String speed; //速度
 	private String picpath;  //图片路径
@@ -22,14 +23,15 @@ public class Pass_car {
 		this.del = 0;
 		this.direction = "";
 	}
-	
-	public Pass_car(int pass_id, int road_id, int bayonet_id,
+
+	public Pass_car(int pass_id, int road_id, int bayonet_id, String car_id,
 			Date collection_date, String speed, String picpath, int del,
 			String direction) {
 		super();
 		this.pass_id = pass_id;
 		this.road_id = road_id;
 		this.bayonet_id = bayonet_id;
+		this.car_id = car_id;
 		this.collection_date = collection_date;
 		this.speed = speed;
 		this.picpath = picpath;
@@ -59,6 +61,14 @@ public class Pass_car {
 
 	public void setBayonet_id(int bayonet_id) {
 		this.bayonet_id = bayonet_id;
+	}
+
+	public String getCar_id() {
+		return car_id;
+	}
+
+	public void setCar_id(String car_id) {
+		this.car_id = car_id;
 	}
 
 	public Date getCollection_date() {
@@ -102,5 +112,4 @@ public class Pass_car {
 	}
 	
 	
-
 }

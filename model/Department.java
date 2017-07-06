@@ -10,7 +10,7 @@ public class Department {
 	private String depart_desc;  //描述
 	private String depart_code;  //部门代码
 	private String shortname;    //部门简称
-	private String depart_parent; //上级部门
+	private int depart_parent; //上级部门
 	private int del;
 	
 	public Department() {
@@ -23,14 +23,14 @@ public class Department {
 		this.depart_desc = "";
 		this.depart_code = "";
 		this.shortname = "";
-		this.depart_parent = "";
+		this.depart_parent = 0;
 		this.del = 0;
 	}
 	
 	public Department(int depart_id, int depart_type, String depart_name,
 			int depart_level, String depart_agent, String depart_tel,
 			String depart_desc, String depart_code, String shortname,
-			String depart_parent, int del) {
+			int depart_parent, int del) {
 		super();
 		this.depart_id = depart_id;
 		this.depart_type = depart_type;
@@ -117,11 +117,11 @@ public class Department {
 		this.shortname = shortname;
 	}
 
-	public String getDepart_parent() {
+	public int getDepart_parent() {
 		return depart_parent;
 	}
 
-	public void setDepart_parent(String depart_parent) {
+	public void setDepart_parent(int depart_parent) {
 		this.depart_parent = depart_parent;
 	}
 
